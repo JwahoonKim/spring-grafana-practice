@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 15s  # 기본 스크랩 간격 설정
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']  # Prometheus 자체를 모니터링
+
+  - job_name: 'spring-boot-app'  # Spring Boot 애플리케이션 타겟 추가
+    scrape_interval: 1s
+    static_configs:
+      - targets: ['spring-boot-app:8080']  # Spring Boot 애플리케이션의 메트릭스 엔드포인트
+    metrics_path: '/actuator/prometheus'
